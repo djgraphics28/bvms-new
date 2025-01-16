@@ -40,14 +40,14 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            <h3>{{ \App\Models\Barangay::all()->count() }}</h3>
 
                             <p>Total Barangays</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-house-user"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('barangays.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -159,10 +159,10 @@
 
                 var map = new google.maps.Map(document.getElementById('map'), {
                     center: {
-                        lat: parseFloat(lat),
-                        lng: parseFloat(lng)
-                    },
-                    zoom: 15
+                        lat: 15.9061,
+                        lng: 120.5853
+                    }, // Default Manila coordinates
+                    zoom: 13
                 });
 
                 var marker = new google.maps.Marker({

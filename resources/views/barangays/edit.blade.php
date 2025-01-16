@@ -24,9 +24,23 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('barangays.update', $barangay->id) }}" method="POST">
+                        <form action="{{ route('barangays.update', $barangay->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+                            <div class="form-group">
+                                <label for="picture">Barangay Image</label>
+                                <input type="file" class="form-control-file" id="picture" name="picture"
+                                    accept="image/*" onchange="previewImage(this)">
+                                @error('picture')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="mt-2">
+                                <img id="preview" src="{{ $barangay->getFirstMediaUrl('barangay-image') }}" alt="Preview"
+                                    style="max-width: 200px; display: {{ $barangay->getFirstMediaUrl('barangay-image') ? 'block' : 'none' }};">
+                            </div>
                             <div class="form-group">
                                 <label for="name">Barangay Name</label>
                                 <input type="text" class="form-control" id="name" name="name"
@@ -59,6 +73,42 @@
     </div>
 
     @push('scripts')
+        <script>
+            function previewImage(input) {
+                const preview = document.getElementById('preview');
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    preview.src = '#';
+                    preview.style.display = 'none';
+                }
+            }
+            // JavaScript for image preview
+            // document.getElementById('imageUpload').addEventListener('change', function(event) {
+            //     const currentImage = document.getElementById('currentImage');
+            //     const preview = document.getElementById('preview');
+            //     const file = event.target.files[0]; // Get the uploaded file
+
+            //     if (file) {
+            //         const reader = new FileReader(); // FileReader to read the image
+            //         reader.onload = function(e) {
+            //             preview.src = e.target.result; // Set preview image source
+            //             preview.style.display = 'block'; // Show the preview
+            //             if (currentImage) {
+            //                 currentImage.style.display = 'none'; // Hide the current image
+            //             }
+            //         };
+            //         reader.readAsDataURL(file); // Read the file as a data URL
+            //     }
+            // });
+        </script>
         <script async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGSdz2RsYpR2isrO9CpAUSQUgAf6pZKvg&callback=initMap"></script>
         <script>

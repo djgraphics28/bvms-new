@@ -24,11 +24,27 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('barangays.store') }}" method="POST">
+                        <form action="{{ route('barangays.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
+                                <label for="picture">Barangay Image</label>
+                                <input type="file" class="form-control-file" id="picture" name="picture"
+                                    accept="image/*" onchange="previewImage(this)">
+                                @error('picture')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="mt-2">
+                                <img id="preview" src="#" alt="Preview" style="max-width: 200px; display: none;">
+                            </div>
+                            <div class="form-group">
                                 <label for="name">Barangay Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    id="name" name="name" required>
+                                @error('name')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -38,15 +54,21 @@
 
                             <div class="form-group">
                                 <label for="latitude">Latitude</label>
-                                <input type="text" class="form-control" id="latitude" name="latitude" readonly required>
+                                <input type="text" class="form-control @error('latitude') is-invalid @enderror"
+                                    id="latitude" name="latitude" readonly required>
+                                @error('latitude')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="longitude">Longitude</label>
-                                <input type="text" class="form-control" id="longitude" name="longitude" readonly
-                                    required>
+                                <input type="text" class="form-control @error('longitude') is-invalid @enderror"
+                                    id="longitude" name="longitude" readonly required>
+                                @error('longitude')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
-
                             <button type="submit" class="btn btn-primary">Create Barangay</button>
                         </form>
                     </div>
@@ -56,6 +78,24 @@
     </div>
 
     @push('scripts')
+        <script>
+            function previewImage(input) {
+                const preview = document.getElementById('preview');
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    preview.src = '#';
+                    preview.style.display = 'none';
+                }
+            }
+        </script>
         <script async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGSdz2RsYpR2isrO9CpAUSQUgAf6pZKvg&callback=initMap"></script>
         <script>

@@ -46,7 +46,7 @@
                                 <tr>
                                     <th>Barangay Name</th>
                                     <th>Location</th>
-                                    <th width="15%">Actions</th>
+                                    <th width="25%">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,16 +56,20 @@
                                         <td>{{ $barangay->latitude }}, {{ $barangay->longitude }}</td>
                                         <td>
                                             <button class="btn btn-sm btn-info"
-                                                onclick="focusLocation({{ $barangay->latitude }}, {{ $barangay->longitude }}, '{{ $barangay->name }}')">View
+                                                onclick="focusLocation({{ $barangay->latitude }}, {{ $barangay->longitude }}, '{{ $barangay->name }}')"><i
+                                                    class="fa fa-map-marker"></i> View
                                                 on Map</button>
+                                            <a href="{{ route('barangays.show', $barangay->id) }}"
+                                                class="btn btn-sm btn-secondary"><i class="fa fa-info-circle"></i> Info</a>
                                             <a href="{{ route('barangays.edit', $barangay->id) }}"
-                                                class="btn btn-sm btn-primary">Edit</a>
+                                                class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edit</a>
                                             <form action="{{ route('barangays.destroy', $barangay->id) }}" method="POST"
                                                 style="display:inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Are you sure you want to delete this barangay?')">Delete</button>
+                                                    onclick="return confirm('Are you sure you want to delete this barangay?')"><i
+                                                        class="fa fa-trash"></i> Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -103,7 +107,7 @@
                         {{ $barangay->latitude }},
                         {{ $barangay->longitude }},
                         "{{ $barangay->name }}",
-                        "{{ $barangay->image_url ?? 'default-image.jpg' }}",
+                        "{{ $barangay->getFirstMediaUrl('barangay-image') ?? 'default-image.jpg' }}",
                         "{{ $barangay->description ?? '' }}"
                     );
                 @endforeach
@@ -120,7 +124,7 @@
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
                         scale: 10,
-                        fillColor: "#4285F4", 
+                        fillColor: "#4285F4",
                         fillOpacity: 1,
                         strokeWeight: 2,
                         strokeColor: "#FFFFFF"
@@ -129,10 +133,10 @@
 
                 const contentString = `
         <div style="max-width:300px">
-            <h3>${title}</h3>
-            <img src="${imageUrl}" style="width:100%;max-height:200px;object-fit:cover;margin:10px 0">
-            <p>${description}</p>
-            <p>Location: ${lat}, ${lng}</p>
+            <span><strong>${title}</strong></span>
+            <img src="${imageUrl}" style="width:100%;max-height:150px;object-fit:cover;margin:10px 0">
+            <br>
+            <span>Location: ${lat}, ${lng}</span>
         </div>
         `;
 
@@ -158,7 +162,7 @@
                     lng: parseFloat(lng)
                 };
                 map.setCenter(position);
-                map.setZoom(20);
+                map.setZoom(14);
 
                 // Find and open the corresponding marker's info window
                 markers.forEach((marker, index) => {

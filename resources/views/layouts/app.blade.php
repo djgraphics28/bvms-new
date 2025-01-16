@@ -112,6 +112,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('admin/plugins/toastr/toastr.min.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -252,16 +254,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <i class="fas fa-th-large"></i>
         </a>
       </li> --}}
-                <li class="nav-item">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#" role="button">
+                        <i class="fas fa-user"></i>
                     </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{{ route('profile') }}">
+                            <i class="fas fa-user mr-2"></i> Profile
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
                 </li>
             </ul>
         </nav>
@@ -410,6 +420,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{-- <script src="dist/js/demo.js"></script> --}}
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('admin/dist/js/pages/dashboard.js') }}"></script>
+
+    <!-- Toastr -->
+    <script src="{{ asset('admin/plugins/toastr/toastr.min.js') }}"></script>
 
     @stack('scripts')
 </body>

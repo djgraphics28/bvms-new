@@ -1,5 +1,7 @@
 @extends('layouts.auth-app')
 
+@section('title', 'Login')
+
 @section('content')
     {{-- <div class="container">
     <div class="row justify-content-center">
@@ -72,7 +74,7 @@
 </div> --}}
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Admin</b>LTE</a>
+            <a href="{{ route('login') }}"><b>{{ config('app.name') }}</b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
@@ -125,7 +127,7 @@
                 </form>
 
                 <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
+                    <a href="{{ route('password.request') }}">I forgot my password</a>
                 </p>
             </div>
             <!-- /.login-card-body -->
