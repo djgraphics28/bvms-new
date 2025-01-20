@@ -22,14 +22,14 @@
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="v-pills-logo-tab" data-toggle="pill" href="#v-pills-logo" role="tab" aria-controls="v-pills-logo" aria-selected="true">Logo Site</a>
                         <a class="nav-link" id="v-pills-sms-tab" data-toggle="pill" href="#v-pills-sms" role="tab" aria-controls="v-pills-sms" aria-selected="false">SMS Config</a>
                         <a class="nav-link" id="v-pills-email-tab" data-toggle="pill" href="#v-pills-email" role="tab" aria-controls="v-pills-email" aria-selected="false">Email Config</a>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-10">
                     <div class="tab-content" id="v-pills-tabContent">
                         <!-- Logo Site Tab -->
                         <div class="tab-pane fade show active" id="v-pills-logo" role="tabpanel" aria-labelledby="v-pills-logo-tab">
