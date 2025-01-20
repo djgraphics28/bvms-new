@@ -21,6 +21,8 @@ class AdminUserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' =>  Hash::make('123123123'),
             'remember_token' => Str::random(10),
+            'superadmin' => true,
+            'user_type' => 'admin',
         ]);
     }
 }
